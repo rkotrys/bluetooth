@@ -31,13 +31,13 @@ def bluetooth_low_energy_scan(timeout=10):
 
 
 if __name__ == "__main__":
-    scansec = 5  # how long to scan for (seconds)
-
+    scansec = 10  # how long to scan for (seconds)
+    print("BT clasic scann:\n")
     dev_classic = bluetooth_classic_scan(scansec)
     if dev_classic:
         for d in dev_classic:
             print(d)
-
+    print("BT BLE scann:\n")
     dev_ble = bluetooth_low_energy_scan(scansec)
     if dev_ble:
         for u, n in dev_ble.items():
