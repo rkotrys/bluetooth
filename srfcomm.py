@@ -10,7 +10,7 @@ end=False
 
 server_sock.bind(("",port))
 server_sock.listen(1)
-
+print( "RFCOMM server start at port {}".format(port) )
 while not end:
     client_sock,address = server_sock.accept()
     print( "Accepted connection from ",address )
