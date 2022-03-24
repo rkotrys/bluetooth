@@ -18,9 +18,7 @@ while not end:
 #    data = client_sock.recv(255).decode().strip()
 #    print("DATA:\n", data)
     try:
-        data = client_sock.recv(255).decode().strip()
-        print("DATA: ", data)
-        d=data.splitlines()
+        d = client_sock.recv(255).decode().strip().splitlines()
         header={ d[0].strip().split(" ")[0]: d[0].strip().split(" ")[1], d[1].strip().split(" ")[0]: d[1].strip().split(" ")[1], d[2].strip().split(" ")[0]: d[2].strip().split(" ")[1]  }
     except:
         print( "Link header error, close connection." )

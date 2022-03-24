@@ -58,5 +58,5 @@ if rep[0]=='OK':
     timestamp=int(dt.datetime.now().timestamp())
     sock.send(buf)
 else:
-    print("Link error: {}".format(rep[1]))    
+    print("Link error: {}".format(rep[2]))    
 sock.close()
