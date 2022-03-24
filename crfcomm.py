@@ -51,6 +51,12 @@ else:
 sock=bt.BluetoothSocket( bt.RFCOMM )
 sock.connect((target_address, port))
 print( "connect to dev: {}, bdaddr: {} port: {}\n".format(target_name, target_address, port) )
-sock.send("host {}\nts {}".format(hostname,db['ts']))
-sock.send(buf)
+sock.send("host {}\nts {}\nlenght {}".format(hostname,db['ts'],len(buf)))
+rep=sock.recv(10).decode().trim().split(" ")
+if rep[0]=='OK':
+    print("Connected at {}".format(rep[1]));
+    timestamp=int(dt.datetime.now().timestamp())
+    sock.send(buf)
+else:
+    print("Link error: {}".format(rep[1]))    
 sock.close()
