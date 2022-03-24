@@ -44,9 +44,9 @@ else:
         print("{} have address: {}\n".format(target_name, bdaddr))
 
 if len(sys.argv)<3:
-    buf = "[{}] Hello there !!\nquit".format(hostname)
+    buf = u"Hello there !!\nquit"
 else:
-    buf = "[{}] {}\nquit".format(hostname,sys.argv[2])
+    buf = u"{}".format(sys.argv[2])
 
 sock=bt.BluetoothSocket( bt.RFCOMM )
 sock.connect((target_address, port))
