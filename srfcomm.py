@@ -16,11 +16,11 @@ while not end:
     print( "\nAccepted connection from {}".format(address) )
     try:
         data = client_sock.recv(255).decode().trim()
+        print("DATA: ", data)
         d=data.splitlines()
         header={ d[0].trim().split(" ")[0]: d[0].trim().split(" ")[1], d[1].trim().split(" ")[0]: d[1].trim().split(" ")[1], d[2].trim().split(" ")[0]: d[2].trim().split(" ")[1]  }
     except:
         print( "Link header error, close connection." )
-        print("DATA: ", data)
     else:
         print( "Sender: {}, ts: {}, lenght: {}".format( header["hostname"], header['ts'], header['lenght'] ) )
         try:
