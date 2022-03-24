@@ -1,7 +1,8 @@
 #/usr/bin/env python3
 #
-
+import sys, json, os
 import bluetooth as bt
+import datetime as dt
 
 server_sock=bt.BluetoothSocket( bt.RFCOMM )
 port = 3
@@ -24,6 +25,8 @@ while not end:
     except:
         print( "Link header error, close connection." )
     else:
+        timestamp=int(dt.datetime.now().timestamp())
+        client_sock.send("OK {}".format(timestamp))
         print( "Sender: {}, ts: {}, lenght: {}".format( header["hostname"], header['ts'], header['lenght'] ) )
         try:
             data = client_sock.recv(header['lenght']+1).decode()
