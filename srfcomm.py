@@ -10,7 +10,7 @@ port = 3
 def getheader(data):
     h={}
     for n in range(0,3):
-        h[d[n].strip().split(":")[0]] = d[n].strip().split(":")[1]
+        h[data[n].strip().split(":")[0]] = data[n].strip().split(":")[1]
     return h
 
 end=False
@@ -24,7 +24,8 @@ while not end:
 #    data = client_sock.recv(255).decode().strip()
 #    print("DATA:\n", data)
     try:
-        header = getheader( client_sock.recv(255).decode().strip().splitlines() )
+        data=client_sock.recv(255).decode().strip()
+        header = getheader( data.splitlines() )
     except:
         print( "Link header error, close connection." )
     else:
