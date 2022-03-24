@@ -27,7 +27,7 @@ while not end:
     else:
         timestamp=int(dt.datetime.now().timestamp())
         client_sock.send("OK {}".format(timestamp))
-        print( "Sender: {}, ts: {}, lenght: {}".format( header["hostname"], header['ts'], header['lenght'] ) )
+        print( "Sender: {}, ts: {}, lenght: {}".format( header["host"], header['ts'], header['lenght'] ) )
         try:
             data = client_sock.recv(header['lenght']+1).decode()
         except:
