@@ -20,7 +20,7 @@ while not end:
         header={ d[0].trim().split(" ")[0]: d[0].trim().split(" ")[1], d[1].trim().split(" ")[0]: d[1].trim().split(" ")[1], d[2].trim().split(" ")[0]: d[2].trim().split(" ")[1]  }
     except:
         print( "Link header error, close connection." )
-        
+        print("DATA: ", data)
     else:
         print( "Sender: {}, ts: {}, lenght: {}".format( header["hostname"], header['ts'], header['lenght'] ) )
         try:
