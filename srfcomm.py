@@ -29,7 +29,7 @@ while not end:
         client_sock.send("OK {}".format(timestamp))
         print( "Sender: {}, ts: {}, lenght: {}".format( header["host"], header['ts'], header['lenght'] ) )
         try:
-            data = client_sock.recv(header['lenght']+1).decode()
+            data = client_sock.recv(int(header['lenght'])+2).decode()
         except:
             print( "Link data error, close connection." )    
         else:
