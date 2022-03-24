@@ -7,6 +7,12 @@ import datetime as dt
 server_sock=bt.BluetoothSocket( bt.RFCOMM )
 port = 3
 
+def getheader(data):
+    h={}
+    for n in range(0,3):
+        h[d[n].strip().split(":")[0]] = d[n].strip().split(":")[1]
+    return h
+
 end=False
 
 server_sock.bind(("",port))
@@ -18,14 +24,13 @@ while not end:
 #    data = client_sock.recv(255).decode().strip()
 #    print("DATA:\n", data)
     try:
-        d = client_sock.recv(255).decode().strip().splitlines()
-        header={ d[0].strip().split(" ")[0]: d[0].strip().split(" ")[1], d[1].strip().split(" ")[0]: d[1].strip().split(" ")[1], d[2].strip().split(" ")[0]: d[2].strip().split(" ")[1]  }
+        header = getheader( client_sock.recv(255).decode().strip().splitlines() )
     except:
         print( "Link header error, close connection." )
     else:
         timestamp=int(dt.datetime.now().timestamp())
         client_sock.send("OK {}".format(timestamp))
-        print( "Sender: {}, ts: {}, lenght: {}".format( header["host"], header['ts'], header['lenght'] ) )
+        print( "Sender: {}, ts: {}, cmd: {}, lenght: {}".format( header["host"], header['ts'], header['cmd'], header['lenght'] ) )
         try:
             data = client_sock.recv(int(header['lenght'])+2).decode()
         except:
