@@ -26,7 +26,6 @@ while not end:
     try:
         data=client_sock.recv(255).decode().strip()
         header = getheader( data.splitlines() )
-        print( header )
     except:
         print( "Link header error, close connection." )
     else:
