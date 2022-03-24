@@ -55,7 +55,7 @@ timestamp=int(dt.datetime.now().timestamp())
 sock.send("host:{}\nts:{}\ncmd:{}\nlenght:{}".format(hostname,timestamp,"DATA",len(buf)))
 rep=sock.recv(64).decode().strip().split(" ")
 if rep[0]=='OK':
-    print("Connected at {}".format(rep[1]));
+    print("Connected at {}\n".format(rep[1]));
     timestamp=int(dt.datetime.now().timestamp())
     sock.send(buf)
 else:
