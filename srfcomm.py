@@ -36,6 +36,6 @@ while not end:
             print(data)    
     finally:        
         client_sock.close()
-        end=True
+#        end=True
 
 server_sock.close()
