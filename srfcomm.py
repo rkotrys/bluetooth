@@ -14,7 +14,7 @@ print( "RFCOMM server start at port {}".format(port) )
 while not end:
     client_sock,address = server_sock.accept()
     print( "\nAccepted connection from {}".format(address) )
-    data = client_sock.recv(255).decode().trim()
+    data = client_sock.recv(255).decode()
     print("DATA: ", data)
 #    try:
 #        data = client_sock.recv(255).decode().trim()
