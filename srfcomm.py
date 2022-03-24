@@ -9,7 +9,7 @@ port = 3
 
 def getheader(data):
     h={}
-    for n in range(0,3):
+    for n in range(0,4):
         h[data[n].strip().split(":")[0]] = data[n].strip().split(":")[1]
     return h
 
