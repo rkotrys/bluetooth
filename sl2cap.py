@@ -62,7 +62,7 @@ while not end:
                 print(data)
             else:
                 client_sock.send("ER")
-                print("Data lenght ERROR")
+                print("Data lenght ERROR, header {} , receive {} B".format(header['L'], len(data)))
     finally:        
         client_sock.close()
 #        end=True
