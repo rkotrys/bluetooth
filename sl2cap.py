@@ -57,7 +57,7 @@ while not end:
         except:
             print( "Link data error, close connection." )    
         else:
-            if len(data)==header['L']:
+            if len(data)==int(header['L']):
                 client_sock.send("OK")
                 print(data)
             else:
