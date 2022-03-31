@@ -57,32 +57,14 @@ while not end:
         except:
             print( "Link data error, close connection." )    
         else:
-            print(data)    
+            if len(data)==header['L']:
+                client_sock.send("OK")
+                print(data)
+            else:
+                client_sock.send("ER")
+                print("Data lenght ERROR")
     finally:        
         client_sock.close()
 #        end=True
-
-server_sock.close()
-
-
-import bluetooth as bt
-
-server_sock=bt.BluetoothSocket( bt.L2CAP )
-port = 1101
-
-end=False
-
-server_sock.bind(("",port))
-server_sock.listen(1)
-
-while not end:
-    client_sock,address = server_sock.accept()
-    print( "Accepted connection from: {}\n".format(address) )
-
-    data = client_sock.recv(1024).decode()
-    print( "[{}] {}\n".format( address, data ) )
-    client_sock.close()
-    if data=='end':
-        end=True
 
 server_sock.close()
