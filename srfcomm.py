@@ -4,20 +4,26 @@ import sys, json, os
 import bluetooth as bt
 import datetime as dt
 
-server_sock=bt.BluetoothSocket( bt.RFCOMM )
-port = 3
-
 def getheader(data):
     h={}
     for n in range(0,4):
         h[data[n].strip().split(":")[0]] = data[n].strip().split(":")[1]
     return h
 
-end=False
-
+hostname=os.uname()[1]
+server_sock=bt.BluetoothSocket( bt.RFCOMM )
+port = bt.get_available_port( bt.RFCOMM )
 server_sock.bind(("",port))
 server_sock.listen(1)
+######################################
+# service unic uuid (generated random)
+service_name = "RFCOMM-rpi {}".format(hostname)
+uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
+######################################
+bt.advertise_service( server_sock, service_name, uuid )
 print( "RFCOMM server start at port {}".format(port) )
+print("Service Discovery Protocol advertise service as: ".format(service_name))
+end=False
 while not end:
     client_sock,address = server_sock.accept()
     print( "\nAccepted connection from {}".format(address) )
