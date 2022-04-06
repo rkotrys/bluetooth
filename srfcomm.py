@@ -13,7 +13,7 @@ def getheader(data):
 hostname=os.uname()[1]
 server_sock=bt.BluetoothSocket( bt.RFCOMM )
 #port = bt.get_available_port( bt.RFCOMM )
-port = 3
+port = 6
 server_sock.bind(("",port))
 server_sock.listen(1)
 ######################################
