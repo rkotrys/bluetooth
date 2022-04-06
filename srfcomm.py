@@ -19,7 +19,8 @@ server_sock.listen(1)
 ######################################
 # service unic uuid (generated random)
 service_name = "RFCOMM-rpi {}".format(hostname)
-uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
+#uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
+uuid = "1e0ca4ea-299d-4335-93eb-27fcfe7fa848"
 ######################################
 bt.advertise_service( server_sock, service_name, uuid )
 print( "RFCOMM server start at port {}".format(port) )
