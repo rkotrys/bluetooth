@@ -25,7 +25,7 @@ def get_available_RF_port():
     quit(10)    
     
 hostname=os.uname()[1]
-server_sock=bt.BluetoothSocket( bt.RFCOMM )
+#server_sock=bt.BluetoothSocket( bt.RFCOMM )
 server_sock=get_available_RF_port()
 server_sock.listen(1)
 ######################################
