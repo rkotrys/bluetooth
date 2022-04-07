@@ -14,7 +14,7 @@ def get_available_RF_port():
     sock=bt.BluetoothSocket( bt.RFCOMM )
     for port in range(1,60):
         try:
-            server_sock.bind(("",port))
+            sock.bind(("",port))
         except bt.BluetoothError:
             print( "Porty {} is not avaiable".format(port))
             continue
