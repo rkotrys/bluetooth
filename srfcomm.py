@@ -10,11 +10,23 @@ def getheader(data):
         h[data[n].strip().split(":")[0]] = data[n].strip().split(":")[1]
     return h
 
+def get_available_RF_port():
+    sock=bt.BluetoothSocket( bt.RFCOMM )
+    for port in range(1,60):
+        try:
+            server_sock.bind(("",port))
+        except bt.BluetoothError:
+            print( "Porty {} is not avaiable".format(port))
+            continue
+        else:
+            print("Port {} wos bind to BTSocket".format(port))
+            return sock
+    print("All ports are busy - quit!")
+    quit(10)    
+    
 hostname=os.uname()[1]
 server_sock=bt.BluetoothSocket( bt.RFCOMM )
-#port = bt.get_available_port( bt.RFCOMM )
-port = 6
-server_sock.bind(("",port))
+server_sock=get_available_RF_port()
 server_sock.listen(1)
 ######################################
 # service unic uuid (generated random)
