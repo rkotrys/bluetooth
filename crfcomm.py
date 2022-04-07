@@ -13,9 +13,21 @@ log.basicConfig(level=log.DEBUG)
 service_name = "RFCOMM-rpi"
 uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
 ######################################
+
+if len(sys.argv)<2:
+    print( "Usege:\n{} <BT_dev_name> <string_to_send>\n".format( __file__ ) )
+    quit(0)
+else:
+    target_name=sys.argv[1]
+
 log.debug("Search for service with uuid={}".format(uuid))
 service_matches = bt.find_service( uuid = uuid )
-
+if len(service_matches) == 0:
+    log.info("Couldn't find the '{}' service".format(service_name))
+    sys.exit(0)
+else:    
+    log.debug("Service {} is found".format(uuid))
+    
 hostname=os.uname()[1]
 db_name=Path('db.json')
 if not db_name.is_file():
@@ -26,11 +38,6 @@ if not db_name.is_file():
 with open( db_name,'r' ) as f:
     db = json.load(f)
 
-if len(sys.argv)<2:
-    print( "Usege:\n{} <BT_dev_name> <string_to_send>\n".format( __file__ ) )
-    quit(0)
-else:
-    target_name=sys.argv[1]
 
 if len(service_matches) == 0:
     log.debug( "Couldn't find the '{}' service".format(service_name) )
