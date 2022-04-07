@@ -12,7 +12,7 @@ def getheader(data):
 
 def get_available_RF_port():
     sock=bt.BluetoothSocket( bt.RFCOMM )
-    for port in range(1,60):
+    for port in range(2,60):
         try:
             sock.bind(("",port))
         except bt.BluetoothError:
