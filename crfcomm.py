@@ -53,7 +53,7 @@ if rep[0]=='OK':
     log.debug("Connected at {}".format(rep[1]));
     timestamp=int(dt.datetime.now().timestamp())
     log.debug("Data transfered: {}".format(buf))
-    sock.send(bytes(buf))
+    sock.send(buf)
 else:
     log.debug("Link error: {}".format(rep[2]))    
 sock.close()
