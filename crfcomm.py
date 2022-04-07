@@ -41,7 +41,7 @@ for first_match in service_matches:
 
 sock=bt.BluetoothSocket( bt.RFCOMM )
 sock.connect((target_address, port))
-log.debug( "Connect to dev: {}, bdaddr: {} port: {}\n".format(target_name, target_address, port) )
+log.debug( "Connect to dev: {}, bdaddr: {} port: {}".format(target_name, target_address, port) )
 if len(sys.argv)<3:
     buf = u"Hello there !!\n"
 else:
@@ -50,7 +50,7 @@ timestamp=int(dt.datetime.now().timestamp())
 sock.send("host:{}\nts:{}\ncmd:{}\nlenght:{}".format(hostname,timestamp,"DATA",len(buf)))
 rep=sock.recv(64).decode().strip().split(" ")
 if rep[0]=='OK':
-    log.debug("Connected at {}\n".format(rep[1]));
+    log.debug("Connected at {}".format(rep[1]));
     timestamp=int(dt.datetime.now().timestamp())
     
     sock.send(buf)
