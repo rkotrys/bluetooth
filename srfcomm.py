@@ -58,7 +58,7 @@ while not end:
         client_sock.send("OK {}".format(timestamp))
         log.debug( "Sender: {}, ts: {}, cmd: {}, lenght: {}".format( header["host"], header['ts'], header['cmd'], header['lenght'] ) )
         try:
-            data = client_sock.recv(int(header['lenght'])+10).decode()
+            data = client_sock.recv(int(header['lenght'])+10)
         except:
             log.error( "Link data error, close connection." )    
         else:
