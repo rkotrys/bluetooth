@@ -4,12 +4,16 @@ import sys, json, os
 import bluetooth as bt
 import datetime as dt
 from pathlib import Path
+import logging as log
+
+log.basicConfig(level=log.DEBUG)
 
 ######################################
 # service unic uuid (generated random)
 service_name = "RFCOMM-rpi"
 uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
 ######################################
+log.debug("Search for service with uuid={}".format(uuid))
 service_matches = bt.find_service( uuid = uuid )
 
 hostname=os.uname()[1]
@@ -18,7 +22,7 @@ if not db_name.is_file():
     with open( db_name,'w' ) as f:
         ts=int(dt.datetime.now().timestamp())
         json.dump( { 'ts': ts, 'n2a': {}, 'a2n': {} }, f, indent=4 )
-        print( "DataBase file {} is created.\n".format(db_name ))
+        log.debug( "DataBase file {} is created.\n".format(db_name ))
 with open( db_name,'r' ) as f:
     db = json.load(f)
 
@@ -29,7 +33,7 @@ else:
     target_name=sys.argv[1]
 
 if len(service_matches) == 0:
-    print( "Couldn't find the '{}' service".format(service_name) )
+    log.debug( "Couldn't find the '{}' service".format(service_name) )
     sys.exit(0)
 
 for first_match in service_matches:
@@ -50,7 +54,7 @@ for first_match in service_matches:
                 with open( db_name,'w' ) as f:
                     json.dump( db, f, indent=4 )
         break
-print("Service '{}' on port {} is found".format(service_name,port))
+log.debug("Service '{}' on port {} is found".format(service_name,port))
 
 #bdaddr=None
 #db_name=Path('db.json')
@@ -95,14 +99,14 @@ else:
 
 sock=bt.BluetoothSocket( bt.RFCOMM )
 sock.connect((target_address, port))
-print( "Connect to dev: {}, bdaddr: {} port: {}\n".format(target_name, target_address, port) )
+log.debug( "Connect to dev: {}, bdaddr: {} port: {}\n".format(target_name, target_address, port) )
 timestamp=int(dt.datetime.now().timestamp())
 sock.send("host:{}\nts:{}\ncmd:{}\nlenght:{}".format(hostname,timestamp,"DATA",len(buf)))
 rep=sock.recv(64).decode().strip().split(" ")
 if rep[0]=='OK':
-    print("Connected at {}\n".format(rep[1]));
+    log.debug("Connected at {}\n".format(rep[1]));
     timestamp=int(dt.datetime.now().timestamp())
     sock.send(buf)
 else:
-    print("Link error: {}".format(rep[2]))    
+    log.debug("Link error: {}".format(rep[2]))    
 sock.close()
