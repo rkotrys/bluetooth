@@ -7,6 +7,14 @@ import logging as log
 
 log.basicConfig(level=log.DEBUG)
 
+######################################
+# service unic uuid (generated random)
+hostname=os.uname()[1]
+service_name = "RFCOMM-rpi {}".format(hostname)
+uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
+######################################
+
+
 def getheader(data):
     h={}
     for n in range(0,4):
@@ -22,25 +30,18 @@ def get_available_RF_port():
             log.debug( "Porty {} is not avaiable".format(port) )
             continue
         else:
-            log.debug("Port {} wos bind to BTSocket".format(port))
+            log.debug("Port {} is bind to BTSocket".format(port))
             return sock
     log.error("All ports are busy - quit!")
     sock.close()
     quit(10)    
     
-hostname=os.uname()[1]
+
 #server_sock=bt.BluetoothSocket( bt.RFCOMM )
 server_sock=get_available_RF_port()
 server_sock.listen(1)
 
-######################################
-# service unic uuid (generated random)
-service_name = "RFCOMM-rpi {}".format(hostname)
-#uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
-uuid = "1e0ca4ea-299d-4335-93eb-27fcfe7fa848"
-######################################
-
-bt.advertise_service( server_sock, service_name, uuid )
+bt.advertise_service( server_sock, service_name,  service_id=uuid, service_classes=[bt.SERIAL_PORT_CLASS], profiles=[bt.SERIAL_PORT_PROFILE],provider=hostname,description='RPI-serial' )
 log.debug( "RFCOMM server start at port {}".format(port) )
 log.debug("Service Discovery Protocol advertise service as: ".format(service_name))
 end=False
