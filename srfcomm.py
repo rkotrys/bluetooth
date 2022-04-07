@@ -36,8 +36,6 @@ def get_available_RF_port():
     sock.close()
     quit(10)    
     
-
-#server_sock=bt.BluetoothSocket( bt.RFCOMM )
 (server_sock, port)=get_available_RF_port()
 server_sock.listen(1)
 
@@ -64,7 +62,7 @@ while not end:
         except:
             log.error( "Link data error, close connection." )    
         else:
-            print(data)    
+            print(data.decode('UTF-8'))    
     finally:        
         client_sock.close()
 #        end=True
