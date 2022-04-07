@@ -31,17 +31,17 @@ def get_available_RF_port():
             continue
         else:
             log.debug("Port {} is bind to BTSocket".format(port))
-            return sock
+            return (sock, port)
     log.error("All ports are busy - quit!")
     sock.close()
     quit(10)    
     
 
 #server_sock=bt.BluetoothSocket( bt.RFCOMM )
-server_sock=get_available_RF_port()
+(server_sock, port)=get_available_RF_port()
 server_sock.listen(1)
 
-bt.advertise_service( server_sock, service_name,  service_id=uuid, service_classes=[bt.SERIAL_PORT_CLASS], profiles=[bt.SERIAL_PORT_PROFILE],provider=hostname,description='RPI-serial' )
+bt.advertise_service( server_sock, name=service_name,  service_id=uuid, service_classes=[bt.SERIAL_PORT_CLASS], profiles=[bt.SERIAL_PORT_PROFILE],provider=hostname,description='RPI-serial' )
 log.debug( "RFCOMM server start at port {}".format(port) )
 log.debug("Service Discovery Protocol advertise service as: ".format(service_name))
 end=False
