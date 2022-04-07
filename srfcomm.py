@@ -10,7 +10,7 @@ log.basicConfig(level=log.DEBUG)
 ######################################
 # service unic uuid (generated random)
 hostname=os.uname()[1]
-service_name = "RFCOMM-rpi {}".format(hostname)
+service_name = "RF-rpi"
 uuid = "104275c2-d062-4859-bf99-6cfd5f5ff199"
 ######################################
 
@@ -45,7 +45,7 @@ log.debug("Service Discovery Protocol advertise service as: {}".format(service_n
 end=False
 while not end:
     client_sock,address = server_sock.accept()
-    log.debug( "\nAccepted connection from {}".format(address) )
+    log.debug( "Accepted connection from {}".format(address) )
 #    data = client_sock.recv(255).decode().strip()
 #    print("DATA:\n", data)
     try:
